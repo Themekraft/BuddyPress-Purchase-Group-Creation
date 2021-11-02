@@ -69,6 +69,8 @@ if ( ! class_exists( 'tk_buddypress_pgc' ) ) {
 			//require_once TK_BP_PGC_CLASSES_PATH . 'tk_buddypress_pgc_required.php';
 
       // TODO: Create a Function based on the tgm depandanciesmanager to check for all reqirements. 1. BuddyPress 2. Groups Component enabled, ...
+
+			// TODO: Add freemius integration
     }
 		/**
 		 * Return an instance of this class.
