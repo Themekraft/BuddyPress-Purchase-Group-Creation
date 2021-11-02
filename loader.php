@@ -56,12 +56,12 @@ if ( ! class_exists( 'tk_buddypress_pgc' ) ) {
 			define( 'TK_BP_PGC_CSS_PATH', plugin_dir_url( __FILE__ ) . 'assets/css/' );
 			define( 'TK_BP_PGC_JS_PATH', plugin_dir_url( __FILE__ ) . 'assets/js/' );
 			define( 'TK_BP_PGC_VIEW_PATH', dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'view' . DIRECTORY_SEPARATOR );
-			define( 'TK_BP_PGC_CLASSES_PATH', dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'classes' . DIRECTORY_SEPARATOR );
+			define( 'TK_BP_PGC_INCLUDES_PATH', dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR );
 
 			$this->load_plugin_textdomain();
 
       // TODO: require all needed resources/ files
-      //require_once WC4BP_GROUP_CLASSES_PATH . 'filename.php';
+      require_once TK_BP_PGC_INCLUDES_PATH . 'bp-group-extension.php';
 
 
       // Pre defined to check all depandancies.
@@ -94,5 +94,5 @@ if ( ! class_exists( 'tk_buddypress_pgc' ) ) {
 		}
 	}
 
-	add_action( 'plugins_loaded', array( 'tk_buddypress_pgc', 'get_instance' ) );
+	add_action( 'bp_init', array( 'tk_buddypress_pgc', 'get_instance' ) );
 }
