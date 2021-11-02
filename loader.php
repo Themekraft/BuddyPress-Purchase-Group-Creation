@@ -4,7 +4,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /*
- * Plugin Name: BuddyPress Purchase Group Creation!
+ * Plugin Name: BuddyPress Purchase Group Creation
  * Plugin URI: https://themekraft.com/
  * Description: Ask your members to pay a fee to create new groups.
  * Version: 0.1
