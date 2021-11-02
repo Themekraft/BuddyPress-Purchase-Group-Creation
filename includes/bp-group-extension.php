@@ -7,7 +7,7 @@
 
 
 if ( bp_is_active( 'groups' ) ) :
-echo 'snack22';
+
 class BP_Purchase_Group_Creation extends BP_Group_Extension {
     /**
      * Here you can see more customization of the config options
