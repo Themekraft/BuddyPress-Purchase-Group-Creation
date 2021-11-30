@@ -1,7 +1,7 @@
 <?php 
-add_action("woocommerce_single_product_summary", "lesson_type_template", 60);
+add_action("woocommerce_single_product_summary", "bp_group_type_template", 60);
 
-function lesson_type_template()
+function bp_group_type_template()
 {
     global $product;
     if ("bp_group" == $product->get_type()) {

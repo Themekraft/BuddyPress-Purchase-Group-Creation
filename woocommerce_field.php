@@ -225,26 +225,5 @@ function save_bp_group_options_field( $post_id ) {
 }
 
 
-function lesson__add_to_content( $content ) {
-
-	global $post;
-
-    if( is_single() && 'sfwd-lessons' === $post->post_type  ) {
-    	$my_id = get_the_ID();
-
-		$product_ids   = get_post_meta($my_id, "product_ids", true);
-		$product_ids   = unserialize($product_ids);
-
-		if(is_user_logged_in())
-		{
-		
-			$user_id=get_current_user_id();
-		}
-    	
-    }
-    //$content= '====';
-   return $content;
-}
-add_filter('the_content', 'lesson__add_to_content');
 
 ?>
