@@ -1,7 +1,7 @@
 <?php
 function wporg_custom_box_html( $post ) {
     //print_r($post->id);
-    ?>
+    ?> 
     <input type="hidden" name="_group_id" id="_group_id" value="<?php echo $post->id; ?>" />
     <table class="form-table">
         <tr>
@@ -139,17 +139,6 @@ function bbg_register_member_types_with_directory() {
 
 
 
-add_filter('the_content', 'remove_empty_tags_recursive', 20, 1);
-function remove_empty_tags_recursive ($str, $repto = NULL) {
-        $str = force_balance_tags($str);
-        if (!is_string ($str) || trim ($str) == '')
-        return $str;
-        return preg_replace (
-              '~\s?<p>(\s|&nbsp;)+</p>\s?~',
-             !is_string ($repto) ? '' : $repto,
-           $str
-        );
-}
 
 
 
