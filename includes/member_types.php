@@ -51,17 +51,21 @@ function wporg_custom_box_html( $post ) {
             </td>
         </tr>
         <tr>
+            <th><label for="_forum_allowed"><?php _e("Enable Forum","bp_group_pfl"); ?></label></th>
+            <td>
+                <input type="checkbox" name="_forum_allowed" id="_forum_allowed" <?php echo ( get_group_meta($post->id,"_forum_allowed")  == "yes" ? "checked" : ""); ?>/>
+            </td>
             <th><label for="_photo_allowed"><?php _e("Enable Photo","bp_group_pfl"); ?></label></th>
             <td>
                 <input type="checkbox" name="_photo_allowed" id="_photo_allowed" <?php echo ( get_group_meta($post->id,"_photo_allowed")  == "yes" ? "checked" : ""); ?>/>
             </td>
+        </tr>
+        <tr>
             <th><label for="_cover_allowed"><?php _e("Enable Cover","bp_group_pfl"); ?></label></th>
             <td>
                 <input type="checkbox" name="_cover_allowed" id="_cover_allowed"  <?php echo ( get_group_meta($post->id,"_cover_allowed")  == "yes" ? "checked" : ""); ?>/>
             </td>
-        </tr>
-        <tr>
-            <th><label for="_invite_allowed"><?php _e("Invite Allowed","bp_group_pfl"); ?></label></th>
+            <th><label for="_invite_allowed"><?php _e("Invite Allowed at group creation","bp_group_pfl"); ?></label></th>
             <td>
                 <input type="checkbox" name="_invite_allowed" id="_invite_allowed"  <?php echo ( get_group_meta($post->id,"_invite_allowed")  == "yes" ? "checked" : ""); ?>/>
             </td>
@@ -95,6 +99,9 @@ function bp_groups_admin_load2() {
         if ( isset( $_POST['_group_invitations'] ) ) {
             update_group_meta($group_id,'_group_invitations',$_POST['_group_invitations']);
         }
+
+        $forum_allowed = isset( $_POST['_forum_allowed'] ) ? 'yes' : 'no';
+        update_group_meta( $group_id, '_forum_allowed', $forum_allowed );
         
         $photo_allowed = isset( $_POST['_photo_allowed'] ) ? 'yes' : 'no';
         update_group_meta( $group_id, '_photo_allowed', $photo_allowed );
