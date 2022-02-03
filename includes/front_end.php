@@ -24,55 +24,135 @@ add_filter( 'bp_user_can_create_groups', 'bp_user_can_create_groups2', 12, 2 );
 
 function group_step_custom_js() {
     $user_ID  = get_current_user_id();
+    $url_ar = explode("/", $_SERVER['REQUEST_URI']);
     $content  = '<script type="text/javascript">
                     window.addEventListener("load", (event) => {
                 ';
-    $privacy_options_check = get_user_meta($user_ID, "_privacy_options_check", true);
-    if ($privacy_options_check == "no") {
-        $privacy_options = get_user_meta($user_ID, "_privacy_options", true);
-        if ($privacy_options != "") {
-            $content  .= 'jQuery("#group-status-'.$privacy_options.'").click();';
-        }
-        $content  .= 'jQuery(".group-status-type").hide();';
-    }
-
-    $group_invitations_check = get_user_meta($user_ID, "_group_invitations_check", true);
-    if ($group_invitations_check == "no") {
-        $group_invitations = get_user_meta($user_ID, "_group_invitations", true);
-        if ($group_invitations != "") {
-            $content  .= 'jQuery("#group-invite-status-'.$group_invitations.'").click();';
-        }
-
-        $content  .= 'jQuery(".group-invitations").hide();';
-    }
-
-    $invite_allowed = get_user_meta($user_ID, "_invite_allowed", true);
-    if ($invite_allowed == "no") {
-        $step = get_group_step();
-        if ($step == "group-invites") {
+    if (in_array("create", $url_ar)) {
+        
+        $privacy_options_check = get_user_meta($user_ID, "_privacy_options_check", true);
+        if ($privacy_options_check == "no") {
+            $privacy_options = get_user_meta($user_ID, "_privacy_options", true);
+            if ($privacy_options != "") {
+                $content  .= 'jQuery("#group-status-'.$privacy_options.'").click();';
+            }
+            //$content  .= 'jQuery(".group-status-type").hide();';
             $content  .= '
-            jQuery(".creation-step-name").hide();
-            jQuery("#group-invites-container").hide();';
+                var ov_height = jQuery(".group-status-type").height() + 16;
+                jQuery(".group-status-type").before("<div class=\"group-status-type-overlay\" style=\"background-color: #fff;position: absolute;z-index: 1;width: 100%;opacity: 0.5;height: "+ov_height+"px;\"></div>");';
+        }
+
+        $group_invitations_check = get_user_meta($user_ID, "_group_invitations_check", true);
+        if ($group_invitations_check == "no") {
+            $group_invitations = get_user_meta($user_ID, "_group_invitations", true);
+            if ($group_invitations != "") {
+                $content  .= 'jQuery("#group-invite-status-'.$group_invitations.'").click();';
+            }
+
+            //$content  .= 'jQuery(".group-invitations").hide();';
+            $content  .= '
+                var ov_height2 = jQuery(".group-invitations").height() + 16;
+                jQuery(".group-invitations").before("<div class=\"group-invitations-overlay\" style=\"background-color: #fff;position: absolute;z-index: 1;width: 100%;opacity: 0.5;height: "+ov_height2+"px;\"></div>");';
+        }
+
+        $group_post_form_check = get_user_meta($user_ID, "_group-post-form_check", true);
+        if ($group_post_form_check == "no") {
+            $group_post_form = get_user_meta($user_ID, "_group-post-form", true);
+            if ($group_post_form != "") {
+                $content  .= 'jQuery("#group-activity-feed-status-'.$group_post_form.'").click();';
+            }
+
+            //$content  .= 'jQuery(".group-invitations").hide();';
+            $content  .= '
+                var ov_height3 = jQuery(".group-post-form").height() + 16;
+                jQuery(".group-post-form").before("<div class=\"group-media-overlay\" style=\"background-color: #fff;position: absolute;z-index: 1;width: 100%;opacity: 0.5;height: "+ov_height3+"px;\"></div>");';
+        }
+
+        $group_media_check = get_user_meta($user_ID, "_group-media_check", true);
+        if ($group_media_check == "no") {
+            $group_media = get_user_meta($user_ID, "_group-media", true);
+            if ($group_media != "") {
+                $content  .= 'jQuery("#group-media-status-'.$group_media.'").click();';
+            }
+
+            //$content  .= 'jQuery(".group-invitations").hide();';
+            $content  .= '
+                var ov_height4 = jQuery(".group-media").height() + 16;
+                jQuery(".group-media").before("<div class=\"group-post-form-overlay\" style=\"background-color: #fff;position: absolute;z-index: 1;width: 100%;opacity: 0.5;height: "+ov_height4+"px;\"></div>");';
+        }
+
+        $group_albums_check = get_user_meta($user_ID, "_group-albums_check", true);
+        if ($group_albums_check == "no") {
+            $group_albums = get_user_meta($user_ID, "_group-albums", true);
+            if ($group_albums != "") {
+                $content  .= 'jQuery("#group-albums-status-'.$group_albums.'").click();';
+            }
+
+            //$content  .= 'jQuery(".group-invitations").hide();';
+            $content  .= '
+                var ov_height5 = jQuery(".group-albums").height() + 16;
+                jQuery(".group-albums").before("<div class=\"group-albums-overlay\" style=\"background-color: #fff;position: absolute;z-index: 1;width: 100%;opacity: 0.5;height: "+ov_height5+"px;\"></div>");';
+        }
+
+        $group_document_check = get_user_meta($user_ID, "_group-document_check", true);
+        if ($group_document_check == "no") {
+            $group_document = get_user_meta($user_ID, "_group-document", true);
+            if ($group_document != "") {
+                $content  .= 'jQuery("#group-document-status-'.$group_document.'").click();';
+            }
+
+            //$content  .= 'jQuery(".group-invitations").hide();';
+            $content  .= '
+                var ov_height6 = jQuery(".group-document").height() + 16;
+                jQuery(".group-document").before("<div class=\"group-document-overlay\" style=\"background-color: #fff;position: absolute;z-index: 1;width: 100%;opacity: 0.5;height: "+ov_height6+"px;\"></div>");';
+        }
+
+        $group_messages_check = get_user_meta($user_ID, "_group-messages_check", true);
+        if ($group_messages_check == "no") {
+            $group_messages = get_user_meta($user_ID, "_group-messages", true);
+            if ($group_messages != "") {
+                $content  .= 'jQuery("#group-messages-status-'.$group_messages.'").click();';
+            }
+
+            //$content  .= 'jQuery(".group-invitations").hide();';
+            $content  .= '
+                var ov_height7 = jQuery(".group-messages").height() + 16;
+                jQuery(".group-messages").before("<div class=\"group-messages-overlay\" style=\"background-color: #fff;position: absolute;z-index: 1;width: 100%;opacity: 0.5;height: "+ov_height7+"px;\"></div>");';
+        }
+
+        $invite_allowed = get_user_meta($user_ID, "_invite_allowed", true);
+        if ($invite_allowed == "no") {
+            $step = get_group_step();
+            if ($step == "group-invites") {
+                $content  .= '
+                jQuery(".creation-step-name").hide();
+                jQuery("#group-invites-container").hide();';
+            }
         }
     }
 
     /*----------------Group Edit Steps------------------*/
 
     $group_slug = "admin-created-group";
-    $url_ar = explode("/", $_SERVER['REQUEST_URI']);
     $step_name = (is_array($url_ar) && count($url_ar) > 0 && isset($url_ar[5]) ? $url_ar[5] : "");
     $editor = (is_array($url_ar) && count($url_ar) > 0 && isset($url_ar[4]) ? $url_ar[4] : "");
     $group = (is_array($url_ar) && count($url_ar) > 0 && isset($url_ar[2]) ? $url_ar[2] : "");
     $group_slug = (is_array($url_ar) && count($url_ar) > 0 && isset($url_ar[3]) ? $url_ar[3] : "");
 
-    if ($editor == "admin" && $group == "groups" && $step_name != "" ) {
+    if ($editor == "admin" && $group == "organization-directory" && $step_name != "" ) {
         $privacy_options_check      = get_group_meta($group_slug,"_privacy_options_check");
         $group_invitations_check    = get_group_meta($group_slug,"_group_invitations_check");
         $photo_allowed              = get_group_meta($group_slug,"_photo_allowed");
+        $forum_allowed              = get_group_meta($group_slug,"_forum_allowed");
         $cover_allowed              = get_group_meta($group_slug,"_cover_allowed");
         $invite_allowed             = get_group_meta($group_slug,"_invite_allowed");
-        $invite_allowed             = get_group_meta($group_slug,"_invite_allowed");
         
+        if ($forum_allowed == "no") {
+            $content  .= 'jQuery("#forum-groups-li").hide();';
+        }
+        if ($step_name == "forum" && $forum_allowed == "no") {
+            $content  .= 'jQuery("#group-settings-form").hide();';
+        }
         if ($invite_allowed == "no") {
             $content  .= 'jQuery("#invite-groups-li").hide();';
         }
@@ -118,7 +198,7 @@ function group_step_custom_js() {
         else if ($cover_allowed == "no") {
             $content  .= 'jQuery("#group-cover-image").hide();';
         }
-    } else if ($group == "groups") {
+    } /*else if ($group == "organization-directory") {
         $invite_allowed             = get_group_meta($group_slug,"_invite_allowed");
         $step_name = (is_array($url_ar) && count($url_ar) > 0 && isset($url_ar[4]) ? $url_ar[4] : "");
         if ($invite_allowed == "no") {
@@ -128,7 +208,7 @@ function group_step_custom_js() {
             $content  .= 'jQuery("#invite-groups-li").hide();
             jQuery("#group-invites-container").hide();';
         }
-    }
+    }*/
 
 
     $content .= '   });
@@ -167,24 +247,5 @@ function groups_create_group_steps_new( $steps = array() )
     }
     return $steps;
 }
-
-function group_steps_allowed_fn()
-{
-    global $bp;
-    $user_ID  = get_current_user_id();
-    $photo_allowed = get_user_meta($user_ID, "_photo_allowed", true);
-    $cover_allowed = get_user_meta($user_ID, "_cover_allowed", true);
-    
-    if ($photo_allowed == "no") {
-        unset($bp->groups->group_creation_steps['group-avatar']);
-    }
-
-    if ($cover_allowed == "no") {
-        unset($bp->groups->group_creation_steps['group-cover-image']);
-    }
-}
-add_action('init','group_steps_allowed_fn');
-
-
 
 ?>

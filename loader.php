@@ -39,6 +39,19 @@ if ( ! defined( 'WPINC' ) ) {
 
 if ( ! class_exists( 'tk_buddypress_pgc' ) ) {
 
+	add_action( 'plugins_loaded', 'wcpt_register_bp_group' );
+
+	function wcpt_register_bp_group () {
+
+		class WC_Product_bp_group extends WC_Product {
+
+			public function __construct( $product ) {
+				$this->product_type = 'bp_group'; // name of your custom product type
+				parent::__construct( $product );
+				// add additional functions here
+			}
+	    }
+	}
 
 	class tk_buddypress_pgc {
 
@@ -60,18 +73,18 @@ if ( ! class_exists( 'tk_buddypress_pgc' ) ) {
 
 			$this->load_plugin_textdomain();
 
-      // TODO: require all needed resources/ files
-      require_once TK_BP_PGC_INCLUDES_PATH . 'bp-group-extension.php';
+      		// TODO: require all needed resources/ files
+      		require_once TK_BP_PGC_INCLUDES_PATH . 'bp-group-extension.php';
 
 
-      // Pre defined to check all depandancies.
-      //require_once TK_BP_PGC_CLASSES_PATH . 'resources' . DIRECTORY_SEPARATOR . 'class-tgm-plugin-activation.php';
+      		// Pre defined to check all depandancies.
+      		//require_once TK_BP_PGC_CLASSES_PATH . 'resources' . DIRECTORY_SEPARATOR . 'class-tgm-plugin-activation.php';
 			//require_once TK_BP_PGC_CLASSES_PATH . 'tk_buddypress_pgc_required.php';
 
-      // TODO: Create a Function based on the tgm depandanciesmanager to check for all reqirements. 1. BuddyPress 2. Groups Component enabled, ...
+      		// TODO: Create a Function based on the tgm depandanciesmanager to check for all reqirements. 1. BuddyPress 2. Groups Component enabled, ...
 
 			// TODO: Add freemius integration
-    }
+    	}
 		/**
 		 * Return an instance of this class.
 		 *
