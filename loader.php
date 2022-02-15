@@ -53,6 +53,13 @@ if ( ! class_exists( 'tk_buddypress_pgc' ) ) {
 	    }
 	}
 
+	function register_my_session(){
+        if( ! session_id() ) {
+            session_start();
+        }
+    }
+    add_action('init', 'register_my_session');
+
 	class tk_buddypress_pgc {
 
 		/**
