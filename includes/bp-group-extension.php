@@ -43,61 +43,78 @@ if ( bp_is_active( 'groups' ) ) :
             $current_url = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
             $url_ar = explode("/", $current_url);
             $current_step = $url_ar[count($url_ar)-2];
+            if(session_id() && isset($_SESSION['package_id']) && !empty($_SESSION['package_id']) ) {
+                $package_id = $_SESSION['package_id'];
+                $group_meta = get_user_meta($user_ID,"_group_package_".$package_id,true);
+    
+                $forum_allowed = isset($group_meta['_forum_allowed']) ? $group_meta['_forum_allowed'] : 'no';
+                $photo_allowed = isset($group_meta['_photo_allowed']) ? $group_meta['_forum_allowed'] : 'no';
+                $cover_allowed = isset($group_meta['_cover_allowed']) ? $group_meta['_forum_allowed'] : 'no';
 
-            $forum_allowed = get_user_meta($user_ID, "_forum_allowed", true);
-            $photo_allowed = get_user_meta($user_ID, "_photo_allowed", true);
-            $cover_allowed = get_user_meta($user_ID, "_cover_allowed", true);
-            
-            if (in_array("create", $url_ar)) {
-                if ($current_step == "forum") {
+                if (in_array("create", $url_ar)) {
+                    if ($current_step == "forum") {
+                        if ($forum_allowed == "no") {
+                            set_cookie_from_this_step("forum");
+
+                            $url_ar[count($url_ar)-2] = "group-avatar";
+                            $url = implode("/", $url_ar);
+                            wp_redirect("//".$url);
+                            exit();
+
+                        }
+                    }
+
+                    if ($current_step == "group-avatar") {
+                        if ($photo_allowed == "no") {
+                            set_cookie_from_this_step("group-avatar");
+
+                            $url_ar[count($url_ar)-2] = "group-cover-image";
+                            $url = implode("/", $url_ar);
+                            wp_redirect("//".$url);
+                            exit();
+                        }
+                    }
+
+                    if ($current_step == "group-cover-image") {
+                        if ($cover_allowed == "no") {
+                            set_cookie_from_this_step("group-cover-image");
+
+                            $url_ar[count($url_ar)-2] = "group-invites";
+                            $url = implode("/", $url_ar);
+                            wp_redirect("//".$url);
+                            exit();
+                        }
+                    }
+
+                    if ($current_step == "group-invites") {
+                        set_cookie_from_this_step("group-invites");
+                    }
                     if ($forum_allowed == "no") {
-                        set_cookie_from_this_step("forum");
-
-                        $url_ar[count($url_ar)-2] = "group-avatar";
-                        $url = implode("/", $url_ar);
-                        wp_redirect("//".$url);
-                        exit();
-
+                        unset($bp->groups->group_creation_steps['forum']);
                     }
-                }
-
-                if ($current_step == "group-avatar") {
                     if ($photo_allowed == "no") {
-                        set_cookie_from_this_step("group-avatar");
-
-                        $url_ar[count($url_ar)-2] = "group-cover-image";
-                        $url = implode("/", $url_ar);
-                        wp_redirect("//".$url);
-                        exit();
+                        unset($bp->groups->group_creation_steps['group-avatar']);
                     }
-                }
-
-                if ($current_step == "group-cover-image") {
                     if ($cover_allowed == "no") {
-                        set_cookie_from_this_step("group-cover-image");
-
-                        $url_ar[count($url_ar)-2] = "group-invites";
-                        $url = implode("/", $url_ar);
-                        wp_redirect("//".$url);
-                        exit();
+                        unset($bp->groups->group_creation_steps['group-cover-image']);
                     }
-                }
-
-                if ($current_step == "group-invites") {
-                    set_cookie_from_this_step("group-invites");
-                }
-                if ($forum_allowed == "no") {
-                    unset($bp->groups->group_creation_steps['forum']);
-                }
-                if ($photo_allowed == "no") {
-                    unset($bp->groups->group_creation_steps['group-avatar']);
-                }
-                if ($cover_allowed == "no") {
-                    unset($bp->groups->group_creation_steps['group-cover-image']);
                 }
             }
         }
         add_action( 'wp_head',"group_steps_allowed_fn",10,1);
+
+        add_action("wp_ajax_save_group_package","save_group_package_fn");
+        function save_group_package_fn(){
+
+            if (isset($_POST['package_id']) && $_POST['package_id'] > 0) {
+                if( ! session_id() ) {
+                    session_start();
+                }
+                $_SESSION['package_id'] = $_POST['package_id'];
+                echo "success";
+            }
+            die();
+        }
     }
 
 endif;

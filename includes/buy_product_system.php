@@ -77,79 +77,56 @@ function woocommerce_order_status_changed_fn($order_id, $old_status, $new_status
     }
 }
 
-function set_user_meta_fields($product_id, $user_id)
-{
-    $allowed_group  = get_post_meta($product_id,"_allowed_group",true);
-    update_user_meta( $user_id, "_allowed_group", $allowed_group);
+function set_user_meta_fields($product_id, $user_id) {
+    $allowed_group           = get_post_meta($product_id,"_allowed_group",true);
+    $member_type             = get_post_meta($product_id,"_member_type",true);
+    $privacy_options_check   = get_post_meta($product_id,"_privacy_options_check",true);
+    $privacy_options         = get_post_meta($product_id,"_privacy_options",true);
+    $group_invitations_check = get_post_meta($product_id,"_group_invitations_check",true);
+    $group_invitations       = get_post_meta($product_id,"_group_invitations",true);
+    $group_post_form_check   = get_post_meta($product_id,"_group-post-form_check",true);
+    $group_post_form         = get_post_meta($product_id,"_group-post-form",true);
+    $group_media_check       = get_post_meta($product_id,"_group-media_check",true);
+    $group_media             = get_post_meta($product_id,"_group-media",true);
+    $group_albums_check      = get_post_meta($product_id,"_group-albums_check",true);
+    $group_albums            = get_post_meta($product_id,"_group-albums",true);
+    $group_document_check    = get_post_meta($product_id,"_group-document_check",true);
+    $group_document          = get_post_meta($product_id,"_group-document",true);
+    $group_messages_check    = get_post_meta($product_id,"_group-messages_check",true);
+    $group_messages          = get_post_meta($product_id,"_group-messages",true);
+    $forum_allowed           = get_post_meta($product_id,"_forum_allowed",true);
+    $photo_allowed           = get_post_meta($product_id,"_photo_allowed",true);
+    $cover_allowed           = get_post_meta($product_id,"_cover_allowed",true);
+    $invite_allowed          = get_post_meta($product_id,"_invite_allowed",true);
 
-    // update member type
-    $member_type  = get_post_meta($product_id,"_member_type",true);
-    update_user_meta( $user_id, "_member_type", $member_type);
+    $user_meta                             = array();
+    $user_meta['product_id']               = $product_id;
+    $user_meta['_allowed_group']           = $allowed_group;
+    $user_meta['_member_type']             = $member_type;
+    $user_meta['_privacy_options_check']   = $privacy_options_check;
+    $user_meta['_privacy_options']         = $privacy_options;
+    $user_meta['_group_invitations_check'] = $group_invitations_check;
+    $user_meta['_group_invitations']       = $group_invitations;
+    $user_meta['_group-post-form_check']   = $group_post_form_check;
+    $user_meta['_group-post-form']         = $group_post_form;
+    $user_meta['_group-media_check']       = $group_media_check;
+    $user_meta['_group-media']             = $group_media;
+    $user_meta['_group-albums_check']      = $group_albums_check;
+    $user_meta['_group-albums']            = $group_albums;
+    $user_meta['_group-document_check']    = $group_document_check;
+    $user_meta['_group-document']          = $group_document;
+    $user_meta['_group-messages_check']    = $group_messages_check;
+    $user_meta['_group-messages']          = $group_messages;
+    $user_meta['_forum_allowed']           = $forum_allowed;
+    $user_meta['_photo_allowed']           = $photo_allowed;
+    $user_meta['_cover_allowed']           = $cover_allowed;
+    $user_meta['_invite_allowed']          = $invite_allowed;
 
-    // update privacy options check
-    $privacy_options_check  = get_post_meta($product_id,"_privacy_options_check",true);
-    update_user_meta( $user_id, "_privacy_options_check", $privacy_options_check);
-    // update privacy options
-    $privacy_options  = get_post_meta($product_id,"_privacy_options",true);
-    update_user_meta( $user_id, "_privacy_options", $privacy_options);
-
-    // update group invitations check
-    $group_invitations_check  = get_post_meta($product_id,"_group_invitations_check",true);
-    update_user_meta( $user_id, "_group_invitations_check", $group_invitations_check);
-    // update group invitations
-    $group_invitations  = get_post_meta($product_id,"_group_invitations",true);
-    update_user_meta( $user_id, "_group_invitations", $group_invitations);
-
-    // update group post form check
-    $group_post_form_check  = get_post_meta($product_id,"_group-post-form_check",true);
-    update_user_meta( $user_id, "_group-post-form_check", $group_post_form_check);
-    // update group post form
-    $group_post_form  = get_post_meta($product_id,"_group-post-form",true);
-    update_user_meta( $user_id, "_group-post-form", $group_post_form);
-
-    // update group media check
-    $group_media_check  = get_post_meta($product_id,"_group-media_check",true);
-    update_user_meta( $user_id, "_group-media_check", $group_media_check);
-    // update group media
-    $group_media  = get_post_meta($product_id,"_group-media",true);
-    update_user_meta( $user_id, "_group-media", $group_media);
-
-    // update group albums check
-    $group_albums_check  = get_post_meta($product_id,"_group-albums_check",true);
-    update_user_meta( $user_id, "_group-albums_check", $group_albums_check);
-    // update group albums
-    $group_albums  = get_post_meta($product_id,"_group-albums",true);
-    update_user_meta( $user_id, "_group-albums", $group_albums);
-
-    // update group document check
-    $group_document_check  = get_post_meta($product_id,"_group-document_check",true);
-    update_user_meta( $user_id, "_group-document_check", $group_document_check);
-    // update group document
-    $group_document  = get_post_meta($product_id,"_group-document",true);
-    update_user_meta( $user_id, "_group-document", $group_document);
-
-    // update group document check
-    $group_messages_check  = get_post_meta($product_id,"_group-messages_check",true);
-    update_user_meta( $user_id, "_group-messages_check", $group_messages_check);
-    // update group document
-    $group_messages  = get_post_meta($product_id,"_group-messages",true);
-    update_user_meta( $user_id, "_group-messages", $group_messages);
-
-    // Forum allowed
-    $forum_allowed  = get_post_meta($product_id,"_forum_allowed",true);
-    update_user_meta( $user_id, "_forum_allowed", $forum_allowed);
-
-    // update photo allowed
-    $photo_allowed  = get_post_meta($product_id,"_photo_allowed",true);
-    update_user_meta( $user_id, "_photo_allowed", $photo_allowed);
-
-    // update cover allowed
-    $cover_allowed  = get_post_meta($product_id,"_cover_allowed",true);
-    update_user_meta( $user_id, "_cover_allowed", $cover_allowed);
-
-    // update invite allowed
-    $invite_allowed  = get_post_meta($product_id,"_invite_allowed",true);
-    update_user_meta( $user_id, "_invite_allowed", $invite_allowed);
+    $previous_package_count =  get_user_meta($user_id,"_package_count",true);
+    $previous_package_count = (!empty($previous_package_count) ? $previous_package_count : 0);
+    $new_package_count = (int) $previous_package_count + 1;
+    update_user_meta($user_id,"_package_count",$new_package_count);
+    update_user_meta($user_id,"_group_package_".$new_package_count,$user_meta);
 }
 
 
@@ -166,169 +143,172 @@ add_action( 'show_user_profile', 'extra_user_profile_fields' );
 add_action( 'edit_user_profile', 'extra_user_profile_fields' );
 
 function extra_user_profile_fields( $user ) { 
-    $member_options = array();
-    $member_options['members']  = __( 'All group members', 'bp_group_pfl');
-    $member_options['mods']     = __( 'Group admins and mods only', 'bp_group_pfl');
-    $member_options['admins']   = __( 'Group admins only', 'bp_group_pfl');
+    $member_options = array(
+                        'members' => __( 'All group members', 'bp_group_pfl'),
+                        'mods'    => __( 'Group admins and mods only', 'bp_group_pfl'),
+                        'admins'  => __( 'Group admins only', 'bp_group_pfl')
+                    );
+    $package_count =  (int) get_user_meta($user->ID,"_package_count",true);
     ?>
-    <h3><?php _e("BuddyPress Allowed Group", "bp_group_pfl"); ?></h3>
-    <table class="form-table">
-        <tr>
-            <th><label for="_allowed_group"><?php _e("Allowed Groups","bp_group_pfl"); ?></label></th>
-            <td>
-                <input type="text" name="_allowed_group" id="_allowed_group" value="<?php echo esc_attr( get_the_author_meta( '_allowed_group', $user->ID ) ); ?>" class="regular-text" />
-            </td>
-        </tr>
-        <tr>
-            <th><label for="_privacy_options_check"><?php _e("Enable Privacy Options","bp_group_pfl"); ?></label></th>
-            <td>
-                <input type="checkbox" name="_privacy_options_check" id="_privacy_options_check" <?php echo (esc_attr( get_the_author_meta( '_privacy_options_check', $user->ID ) ) == "yes" ? "checked" : ""); ?>/>
-                <?php
-                    $pr_options = array();
-                    $pr_options['public']   = __( 'Public Group', 'bp_group_pfl');
-                    $pr_options['private']  = __( 'Private Group', 'bp_group_pfl');
-                    $pr_options['hidden']   = __( 'Hidden Group', 'bp_group_pfl');
-                ?>
-                <select name="_privacy_options" id="_privacy_options">
+    <h3><?php _e("BuddyPress Purchased Group Packages", "bp_group_pfl"); ?></h3>
+    <?php 
+    if(!$package_count > 0){
+        ?>
+        <h4>No Package is Purchased</h4>
+        <?php
+    }
+    for ($i = 1; $i <= $package_count; $i++) { 
+        $up_meta = array();
+        $up_meta =  get_user_meta($user->ID,"_group_package_".$i,true);
+        ?>
+        <h3><?php _e("Purchased Packages ".$i, "bp_group_pfl"); ?></h3>
+        <table class="widefat fixed">
+            <tr>
+                <td>
+                    <label for="_allowed_group_<?php echo $i; ?>"><?php _e("Allowed Groups","bp_group_pfl"); ?></label>
+                    <input type="text" name="_allowed_group[<?php echo $i; ?>]" id="_allowed_group_<?php echo $i; ?>" value="<?php echo esc_attr($up_meta['_allowed_group']); ?>" class="" />
+                </td>
+                <td>
+                    <input type="checkbox" name="_privacy_options_check[<?php echo $i; ?>]" id="_privacy_options_check_<?php echo $i; ?>" <?php echo (esc_attr($up_meta['_privacy_options_check']) == "yes" ? "checked" : ""); ?>/>
+                    <label for="_privacy_options_check_<?php echo $i; ?>"><?php _e("Enable Privacy Options","bp_group_pfl"); ?></label>
+                    <br>
                     <?php
-                    foreach ($pr_options as $key => $value) {
-                        ?>
-                        <option value="<?php echo $key; ?>" <?php echo (esc_attr( get_the_author_meta( '_privacy_options', $user->ID ) ) == $key ? "selected" : ""); ?>>
-                            <?php echo $value; ?>
-                        </option>
-                        <?php                        
-                    }
+                        $pr_options = array(
+                                            'public'  => __( 'Public Group', 'bp_group_pfl'),
+                                            'private' => __( 'Private Group', 'bp_group_pfl'),
+                                            'hidden'  => __( 'Hidden Group', 'bp_group_pfl')
+                                        );
                     ?>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <th><label for="_group_invitations_check"><?php _e("Enable Group Invitations","bp_group_pfl"); ?></label></th>
-            <td>
-                <input type="checkbox" name="_group_invitations_check" id="_group_invitations_check" <?php echo (esc_attr( get_the_author_meta( '_group_invitations_check', $user->ID ) ) == "yes" ? "checked" : ""); ?>/>
-                <select name="_group_invitations" id="_group_invitations">
-                    <?php
-                    foreach ($member_options as $key => $value) {
+                    <select name="_privacy_options[<?php echo $i; ?>]" id="_privacy_options_<?php echo $i; ?>">
+                        <?php
+                        foreach ($pr_options as $key => $value) {
+                            ?>
+                            <option value="<?php echo $key; ?>" <?php echo (esc_attr($up_meta['_privacy_options']) == $key ? "selected" : ""); ?>>
+                                <?php echo $value; ?>
+                            </option>
+                            <?php                        
+                        }
                         ?>
-                        <option value="<?php echo $key; ?>" <?php echo (esc_attr( get_the_author_meta( '_group_invitations', $user->ID ) ) == $key ? "selected" : ""); ?>>
-                            <?php echo $value; ?>
-                        </option>
-                        <?php                        
-                    }
-                    ?>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <th><label for="_group-post-form_check"><?php _e("Enable Activity Feeds","bp_group_pfl"); ?></label></th>
-            <td>
-                <input type="checkbox" name="_group-post-form_check" id="_group-post-form_check" <?php echo (esc_attr( get_the_author_meta( '_group-post-form_check', $user->ID ) ) == "yes" ? "checked" : ""); ?>/>
-                <select name="_group-post-form" id="_group-post-form">
-                    <?php
-                    foreach ($member_options as $key => $value) {
+                    </select>
+                </td>
+                <td>
+                    <input type="checkbox" name="_group_invitations_check[<?php echo $i; ?>]" id="_group_invitations_check_<?php echo $i; ?>" <?php echo (esc_attr($up_meta['_group_invitations_check']) == "yes" ? "checked" : ""); ?>/>
+                    <label for="_group_invitations_check_<?php echo $i; ?>"><?php _e("Enable Group Invitations","bp_group_pfl"); ?></label>
+                    <br>
+                    <select name="_group_invitations[<?php echo $i; ?>]" id="_group_invitations_<?php echo $i; ?>">
+                        <?php
+                        foreach ($member_options as $key => $value) {
+                            ?>
+                            <option value="<?php echo $key; ?>" <?php echo (esc_attr($up_meta['_group_invitations']) == $key ? "selected" : ""); ?>>
+                                <?php echo $value; ?>
+                            </option>
+                            <?php                        
+                        }
                         ?>
-                        <option value="<?php echo $key; ?>" <?php echo (esc_attr( get_the_author_meta( '_group-post-form', $user->ID ) ) == $key ? "selected" : ""); ?>>
-                            <?php echo $value; ?>
-                        </option>
-                        <?php                        
-                    }
-                    ?>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <th><label for="_group-media_check"><?php _e("Enable Upload Photos","bp_group_pfl"); ?></label></th>
-            <td>
-                <input type="checkbox" name="_group-media_check" id="_group-media_check" <?php echo (esc_attr( get_the_author_meta( '_group-media_check', $user->ID ) ) == "yes" ? "checked" : ""); ?>/>
-                <select name="_group-media" id="_group-media">
-                    <?php
-                    foreach ($member_options as $key => $value) {
+                    </select>
+                </td>
+                <td>
+                    <input type="checkbox" name="_group-post-form_check[<?php echo $i; ?>]" id="_group-post-form_check_<?php echo $i; ?>" <?php echo (esc_attr($up_meta['_group-post-form_check']) == "yes" ? "checked" : ""); ?>/>
+                    <label for="_group-post-form_check_<?php echo $i; ?>"><?php _e("Enable Activity Feeds","bp_group_pfl"); ?></label>
+                    <br>
+                    <select name="_group-post-form[<?php echo $i; ?>]" id="_group-post-form_<?php echo $i; ?>">
+                        <?php
+                        foreach ($member_options as $key => $value) {
+                            ?>
+                            <option value="<?php echo $key; ?>" <?php echo (esc_attr($up_meta['_group-post-form']) == $key ? "selected" : ""); ?>>
+                                <?php echo $value; ?>
+                            </option>
+                            <?php                        
+                        }
                         ?>
-                        <option value="<?php echo $key; ?>" <?php echo (esc_attr( get_the_author_meta( '_group-media', $user->ID ) ) == $key ? "selected" : ""); ?>>
-                            <?php echo $value; ?>
-                        </option>
-                        <?php                        
-                    }
-                    ?>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <th><label for="_group-albums_check"><?php _e("Enable Albums Creation","bp_group_pfl"); ?></label></th>
-            <td>
-                <input type="checkbox" name="_group-albums_check" id="_group-albums_check" <?php echo (esc_attr( get_the_author_meta( '_group-albums_check', $user->ID ) ) == "yes" ? "checked" : ""); ?>/>
-                <select name="_group-albums" id="_group-albums">
-                    <?php
-                    foreach ($member_options as $key => $value) {
+                    </select>
+                </td>
+                <td>
+                    <input type="checkbox" name="_group-media_check[<?php echo $i; ?>]" id="_group-media_check_<?php echo $i; ?>" <?php echo (esc_attr($up_meta['_group-media_check']) == "yes" ? "checked" : ""); ?>/>
+                    <label for="_group-media_check_<?php echo $i; ?>"><?php _e("Enable Upload Photos","bp_group_pfl"); ?></label>
+                    <br>
+                    <select name="_group-media[<?php echo $i; ?>]" id="_group-media_<?php echo $i; ?>">
+                        <?php
+                        foreach ($member_options as $key => $value) {
+                            ?>
+                            <option value="<?php echo $key; ?>" <?php echo (esc_attr($up_meta['_group-media']) == $key ? "selected" : ""); ?>>
+                                <?php echo $value; ?>
+                            </option>
+                            <?php                        
+                        }
                         ?>
-                        <option value="<?php echo $key; ?>" <?php echo (esc_attr( get_the_author_meta( '_group-albums', $user->ID ) ) == $key ? "selected" : ""); ?>>
-                            <?php echo $value; ?>
-                        </option>
-                        <?php                        
-                    }
-                    ?>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <th><label for="_group-document_check"><?php _e("Enable Documents Upload","bp_group_pfl"); ?></label></th>
-            <td>
-                <input type="checkbox" name="_group-document_check" id="_group-document_check" <?php echo (esc_attr( get_the_author_meta( '_group-document_check', $user->ID ) ) == "yes" ? "checked" : ""); ?>/>
-                <select name="_group-document" id="_group-document">
-                    <?php
-                    foreach ($member_options as $key => $value) {
+                    </select>
+                </td>
+            </tr>
+            <tr>
+            </tr>
+            <tr>
+                <td>
+                    <input type="checkbox" name="_group-albums_check[<?php echo $i; ?>]" id="_group-albums_check_<?php echo $i; ?>" <?php echo (esc_attr($up_meta['_group-albums_check']) == "yes" ? "checked" : ""); ?>/>
+                    <label for="_group-albums_check_<?php echo $i; ?>"><?php _e("Enable Albums Creation","bp_group_pfl"); ?></label>
+                    <br>
+                    <select name="_group-albums[<?php echo $i; ?>]" id="_group-albums_<?php echo $i; ?>">
+                        <?php
+                        foreach ($member_options as $key => $value) {
+                            ?>
+                            <option value="<?php echo $key; ?>" <?php echo (esc_attr($up_meta['_group-albums']) == $key ? "selected" : ""); ?>>
+                                <?php echo $value; ?>
+                            </option>
+                            <?php                        
+                        }
                         ?>
-                        <option value="<?php echo $key; ?>" <?php echo (esc_attr( get_the_author_meta( '_group-document', $user->ID ) ) == $key ? "selected" : ""); ?>>
-                            <?php echo $value; ?>
-                        </option>
-                        <?php                        
-                    }
-                    ?>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <th><label for="_group-messages_check"><?php _e("Enable Group Invitations","bp_group_pfl"); ?></label></th>
-            <td>
-                <input type="checkbox" name="_group-messages_check" id="_group-messages_check" <?php echo (esc_attr( get_the_author_meta( '_group-messages_check', $user->ID ) ) == "yes" ? "checked" : ""); ?>/>
-                <select name="_group-messages" id="_group-messages">
-                    <?php
-                    foreach ($member_options as $key => $value) {
+                    </select>
+                </td>
+                <td>
+                    <input type="checkbox" name="_group-document_check[<?php echo $i; ?>]" id="_group-document_check_<?php echo $i; ?>" <?php echo (esc_attr($up_meta['_group-document_check']) == "yes" ? "checked" : ""); ?>/>
+                    <label for="_group-document_check_<?php echo $i; ?>"><?php _e("Enable Documents Upload","bp_group_pfl"); ?></label>
+                    <br>
+                    <select name="_group-document[<?php echo $i; ?>]" id="_group-document_<?php echo $i; ?>">
+                        <?php
+                        foreach ($member_options as $key => $value) {
+                            ?>
+                            <option value="<?php echo $key; ?>" <?php echo (esc_attr($up_meta['_group-document']) == $key ? "selected" : ""); ?>>
+                                <?php echo $value; ?>
+                            </option>
+                            <?php                        
+                        }
                         ?>
-                        <option value="<?php echo $key; ?>" <?php echo (esc_attr( get_the_author_meta( '_group-messages', $user->ID ) ) == $key ? "selected" : ""); ?>>
-                            <?php echo $value; ?>
-                        </option>
-                        <?php                        
-                    }
-                    ?>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <th><label for="_forum_allowed"><?php _e("Enable Forum","bp_group_pfl"); ?></label></th>
-            <td>
-                <input type="checkbox" name="_forum_allowed" id="_forum_allowed" <?php echo (esc_attr( get_the_author_meta( '_forum_allowed', $user->ID ) ) == "yes" ? "checked" : ""); ?>/>
-            </td>
-        </tr>
-        <tr>
-            <th><label for="_photo_allowed"><?php _e("Enable Photo","bp_group_pfl"); ?></label></th>
-            <td>
-                <input type="checkbox" name="_photo_allowed" id="_photo_allowed" <?php echo (esc_attr( get_the_author_meta( '_photo_allowed', $user->ID ) ) == "yes" ? "checked" : ""); ?>/>
-            </td>
-        </tr>
-        <tr>
-            <th><label for="_cover_allowed"><?php _e("Enable Cover","bp_group_pfl"); ?></label></th>
-            <td>
-                <input type="checkbox" name="_cover_allowed" id="_cover_allowed" <?php echo (esc_attr( get_the_author_meta( '_cover_allowed', $user->ID ) ) == "yes" ? "checked" : ""); ?>/>
-            </td>
-        </tr>
-        <tr>
-            <th><label for="_invite_allowed"><?php _e("Invite Allowed at group creation","bp_group_pfl"); ?></label></th>
-            <td>
-                <input type="checkbox" name="_invite_allowed" id="_invite_allowed" <?php echo (esc_attr( get_the_author_meta( '_invite_allowed', $user->ID ) ) == "yes" ? "checked" : ""); ?>/>
-            </td>
-        </tr>
-    </table>
+                    </select>
+                </td>
+                <td>
+                    <input type="checkbox" name="_group-messages_check[<?php echo $i; ?>]" id="_group-messages_check_<?php echo $i; ?>" <?php echo (esc_attr($up_meta['_group-messages_check']) == "yes" ? "checked" : ""); ?>/>
+                    <label for="_group-messages_check_<?php echo $i; ?>"><?php _e("Enable Group Messages","bp_group_pfl"); ?></label>
+                    <br>
+                    <select name="_group-messages[<?php echo $i; ?>]" id="_group-messages_<?php echo $i; ?>">
+                        <?php
+                        foreach ($member_options as $key => $value) {
+                            ?>
+                            <option value="<?php echo $key; ?>" <?php echo (esc_attr($up_meta['_group-messages']) == $key ? "selected" : ""); ?>>
+                                <?php echo $value; ?>
+                            </option>
+                            <?php                        
+                        }
+                        ?>
+                    </select>
+                </td>
+                <td>
+                    <input type="checkbox" name="_forum_allowed[<?php echo $i; ?>]" id="_forum_allowed_<?php echo $i; ?>" <?php echo (esc_attr($up_meta['_forum_allowed']) == "yes" ? "checked" : ""); ?>/>
+                    <label for="_forum_allowed_<?php echo $i; ?>"><?php _e("Enable Forum","bp_group_pfl"); ?></label>
+                    <br>
+                    <input type="checkbox" name="_photo_allowed[<?php echo $i; ?>]" id="_photo_allowed_<?php echo $i; ?>" <?php echo (esc_attr($up_meta['_photo_allowed']) == "yes" ? "checked" : ""); ?>/>
+                    <label for="_photo_allowed_<?php echo $i; ?>"><?php _e("Enable Photo","bp_group_pfl"); ?></label>
+                </td>
+                <td>
+                    <input type="checkbox" name="_cover_allowed[<?php echo $i; ?>]" id="_cover_allowed_<?php echo $i; ?>" <?php echo (esc_attr($up_meta['_cover_allowed']) == "yes" ? "checked" : ""); ?>/>
+                    <label for="_cover_allowed_<?php echo $i; ?>"><?php _e("Enable Cover","bp_group_pfl"); ?></label>
+                    <br>
+                    <input type="checkbox" name="_invite_allowed[<?php echo $i; ?>]" id="_invite_allowed_<?php echo $i; ?>" <?php echo (esc_attr($up_meta['_invite_allowed']) == "yes" ? "checked" : ""); ?>/>
+                    <label for="_invite_allowed_<?php echo $i; ?>"><?php _e("Invite Allowed","bp_group_pfl"); ?></label>
+                </td>
+            </tr>
+        </table>
+        <?php
+    } ?>
     <?php 
 }
 
@@ -339,96 +319,108 @@ function save_extra_user_profile_fields( $user_id ) {
     if ( empty( $_POST['_wpnonce'] ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'update-user_' . $user_id ) ) {
         return;
     }
-    
     if ( !current_user_can( 'edit_user', $user_id ) ) { 
         return false; 
     }
+    $package_count =  (int) get_user_meta($user_id,"_package_count",true);
+    for ($i = 1; $i <= $package_count; $i++) { 
+        $up_meta = array();
 
-    if (isset($_POST['_allowed_group'])) {
-        update_user_meta( $user_id, '_allowed_group', $_POST['_allowed_group'] );
+        if (isset($_POST['_allowed_group'][$i])) {
+            $up_meta['_allowed_group'] = $_POST['_allowed_group'][$i];
+        }
+
+        $privacy_options_check = isset( $_POST['_privacy_options_check'][$i] ) ? 'yes' : 'no';
+        $up_meta['_privacy_options_check'] = $privacy_options_check;
+        if (isset($_POST['_privacy_options'][$i])) {
+            $up_meta['_privacy_options'] = $_POST['_privacy_options'][$i];
+        }
+
+        $group_invitations_check = isset( $_POST['_group_invitations_check'][$i] ) ? 'yes' : 'no';
+        $up_meta['_group_invitations_check'] = $group_invitations_check;
+        if (isset($_POST['_group_invitations'][$i])) {
+            $up_meta['_group_invitations'] = $_POST['_group_invitations'][$i];
+        }
+
+        $group_post_form_check = isset( $_POST['_group-post-form_check'][$i] ) ? 'yes' : 'no';
+        $up_meta['_group-post-form_check'] = $group_post_form_check;
+        if (isset($_POST['_group-post-form'][$i])) {
+            $up_meta['_group-post-form'] = $_POST['_group-post-form'][$i];
+        }
+
+        $group_media_check = isset( $_POST['_group-media_check'][$i] ) ? 'yes' : 'no';
+        $up_meta['_group-media_check'] = $group_media_check;
+        if (isset($_POST['_group-media'][$i])) {
+            $up_meta['_group-media'] = $_POST['_group-media'][$i];
+        }
+
+        $group_albums_check = isset( $_POST['_group-albums_check'][$i] ) ? 'yes' : 'no';
+        $up_meta['_group-albums_check'] = $group_albums_check;
+        if (isset($_POST['_group-albums'][$i])) {
+            $up_meta['_group-albums'] = $_POST['_group-albums'][$i];
+        }
+
+        $group_document_check = isset( $_POST['_group-document_check'][$i] ) ? 'yes' : 'no';
+        $up_meta['_group-document_check'] = $group_document_check;
+        if (isset($_POST['_group-document'][$i])) {
+            $up_meta['_group-document'] = $_POST['_group-document'][$i];
+        }
+
+        $group_messages_check = isset( $_POST['_group-messages_check'][$i] ) ? 'yes' : 'no';
+        $up_meta['_group-messages_check'] = $group_messages_check;
+        if (isset($_POST['_group-messages'][$i])) {
+            $up_meta['_group-messages'] = $_POST['_group-messages'][$i];
+        }
+
+        $forum_allowed = isset( $_POST['_forum_allowed'][$i] ) ? 'yes' : 'no';
+        $up_meta['_forum_allowed'] = $forum_allowed;
+
+        $photo_allowed = isset( $_POST['_photo_allowed'][$i] ) ? 'yes' : 'no';
+        $up_meta['_photo_allowed'] = $photo_allowed;
+
+        $cover_allowed = isset( $_POST['_cover_allowed'][$i] ) ? 'yes' : 'no';
+        $up_meta['_cover_allowed'] = $cover_allowed;
+
+        $invite_allowed = isset( $_POST['_invite_allowed'][$i] ) ? 'yes' : 'no';
+        $up_meta['_invite_allowed'] = $invite_allowed;
+
+        update_user_meta($user_id,"_group_package_".$i,$up_meta);
     }
 
-    $privacy_options_check = isset( $_POST['_privacy_options_check'] ) ? 'yes' : 'no';
-    update_user_meta( $user_id, '_privacy_options_check', $privacy_options_check );
-    if (isset($_POST['_privacy_options'])) {
-        update_user_meta( $user_id, '_privacy_options', $_POST['_privacy_options'] );
-    }
-
-    $group_invitations_check = isset( $_POST['_group_invitations_check'] ) ? 'yes' : 'no';
-    update_user_meta( $user_id, '_group_invitations_check', $group_invitations_check );
-    if (isset($_POST['_group_invitations'])) {
-        update_user_meta( $user_id, '_group_invitations', $_POST['_group_invitations'] );
-    }
-
-    $group_post_form_check = isset( $_POST['_group-post-form_check'] ) ? 'yes' : 'no';
-    update_user_meta( $user_id, '_group-post-form_check', $group_post_form_check );
-    if (isset($_POST['_group-post-form'])) {
-        update_user_meta( $user_id, '_group-post-form', $_POST['_group-post-form'] );
-    }
-
-    $group_media_check = isset( $_POST['_group-media_check'] ) ? 'yes' : 'no';
-    update_user_meta( $user_id, '_group-media_check', $group_media_check );
-    if (isset($_POST['_group-media'])) {
-        update_user_meta( $user_id, '_group-media', $_POST['_group-media'] );
-    }
-
-    $group_albums_check = isset( $_POST['_group-albums_check'] ) ? 'yes' : 'no';
-    update_user_meta( $user_id, '_group-albums_check', $group_albums_check );
-    if (isset($_POST['_group-albums'])) {
-        update_user_meta( $user_id, '_group-albums', $_POST['_group-albums'] );
-    }
-
-    $group_document_check = isset( $_POST['_group-document_check'] ) ? 'yes' : 'no';
-    update_user_meta( $user_id, '_group-document_check', $group_document_check );
-    if (isset($_POST['_group-document'])) {
-        update_user_meta( $user_id, '_group-document', $_POST['_group-document'] );
-    }
-
-    $group_messages_check = isset( $_POST['_group-messages_check'] ) ? 'yes' : 'no';
-    update_user_meta( $user_id, '_group-messages_check', $group_messages_check );
-    if (isset($_POST['_group-messages'])) {
-        update_user_meta( $user_id, '_group-messages', $_POST['_group-messages'] );
-    }
-
-    $forum_allowed = isset( $_POST['_forum_allowed'] ) ? 'yes' : 'no';
-    update_user_meta( $user_id, '_forum_allowed', $forum_allowed );
-
-    $photo_allowed = isset( $_POST['_photo_allowed'] ) ? 'yes' : 'no';
-    update_user_meta( $user_id, '_photo_allowed', $photo_allowed );
-
-    $cover_allowed = isset( $_POST['_cover_allowed'] ) ? 'yes' : 'no';
-    update_user_meta( $user_id, '_cover_allowed', $cover_allowed );
-
-    $invite_allowed = isset( $_POST['_invite_allowed'] ) ? 'yes' : 'no';
-    update_user_meta( $user_id, '_invite_allowed', $invite_allowed );
 }
 
 function update_group_meta_fn($group_id) {
     global $wpdb; 
     $user_ID                    = get_current_user_id();
-    $privacy_options_check      = get_user_meta($user_ID, "_privacy_options_check", true);
-    $privacy_options            = get_user_meta($user_ID, "_privacy_options", true);
-    $group_invitations_check    = get_user_meta($user_ID, "_group_invitations_check", true);
-    $group_invitations          = get_user_meta($user_ID, "_group_invitations", true);
-    $group_post_form_check      = get_user_meta($user_ID, "_group-post-form_check", true);
-    $group_post_form            = get_user_meta($user_ID, "_group-post-form", true);
-    $group_media_check          = get_user_meta($user_ID, "_group-media_check", true);
-    $group_media                = get_user_meta($user_ID, "_group-media", true);
-    $group_albums_check         = get_user_meta($user_ID, "_group-albums_check", true);
-    $group_albums               = get_user_meta($user_ID, "_group-albums", true);
-    $group_document_check       = get_user_meta($user_ID, "_group-document_check", true);
-    $group_document             = get_user_meta($user_ID, "_group-document", true);
-    $group_messages_check       = get_user_meta($user_ID, "_group-messages_check", true);
-    $group_messages             = get_user_meta($user_ID, "_group-messages", true);
-    $forum_allowed              = get_user_meta($user_ID, "_forum_allowed", true);
-    $photo_allowed              = get_user_meta($user_ID, "_photo_allowed", true);
-    $cover_allowed              = get_user_meta($user_ID, "_cover_allowed", true);
-    $invite_allowed             = get_user_meta($user_ID, "_invite_allowed", true);
+    if(session_id() && isset($_SESSION['package_id']) && !empty($_SESSION['package_id']) ) {
+        $package_id = $_SESSION['package_id'];
+        $up_meta =  get_user_meta($user_ID,"_group_package_".$package_id,true);
+        
+        $package_product_id      = isset($up_meta['product_id']) ? $up_meta['product_id'] : '';
+        $privacy_options_check      = isset($up_meta['_privacy_options_check']) ? $up_meta['_privacy_options_check'] : '';
+        $privacy_options            = isset($up_meta['_privacy_options']) ? $up_meta['_privacy_options'] : '';
+        $group_invitations_check    = isset($up_meta['_group_invitations_check']) ? $up_meta['_group_invitations_check'] : '';
+        $group_invitations          = isset($up_meta['_group_invitations']) ? $up_meta['_group_invitations'] : '';
+        $group_post_form_check      = isset($up_meta['_group-post-form_check']) ? $up_meta['_group-post-form_check'] : '';
+        $group_post_form            = isset($up_meta['_group-post-form']) ? $up_meta['_group-post-form'] : '';
+        $group_media_check          = isset($up_meta['_group-media_check']) ? $up_meta['_group-media_check'] : '';
+        $group_media                = isset($up_meta['_group-media']) ? $up_meta['_group-media'] : '';
+        $group_albums_check         = isset($up_meta['_group-albums_check']) ? $up_meta['_group-albums_check'] : '';
+        $group_albums               = isset($up_meta['_group-albums']) ? $up_meta['_group-albums'] : '';
+        $group_document_check       = isset($up_meta['_group-document_check']) ? $up_meta['_group-document_check'] : '';
+        $group_document             = isset($up_meta['_group-document']) ? $up_meta['_group-document'] : '';
+        $group_messages_check       = isset($up_meta['_group-messages_check']) ? $up_meta['_group-messages_check'] : '';
+        $group_messages             = isset($up_meta['_group-messages']) ? $up_meta['_group-messages'] : '';
+        $forum_allowed              = isset($up_meta['_forum_allowed']) ? $up_meta['_forum_allowed'] : '';
+        $photo_allowed              = isset($up_meta['_photo_allowed']) ? $up_meta['_photo_allowed'] : '';
+        $cover_allowed              = isset($up_meta['_cover_allowed']) ? $up_meta['_cover_allowed'] : '';
+        $invite_allowed             = isset($up_meta['_invite_allowed']) ? $up_meta['_invite_allowed'] : '';
 
-    $delete_q  = " DELETE FROM ".$wpdb->prefix."bp_groups_groupmeta 
+        $delete_q  = " DELETE FROM ".$wpdb->prefix."bp_groups_groupmeta 
                 WHERE 
                     `group_id` = '".$group_id."' AND
                     (
+                        `meta_key` = '_package_product_id' OR
                         `meta_key` = 'group_complete' OR
                         `meta_key` = '_privacy_options_check' OR
                         `meta_key` = '_privacy_options' OR
@@ -448,13 +440,14 @@ function update_group_meta_fn($group_id) {
                         `meta_key` = '_photo_allowed' OR
                         `meta_key` = '_cover_allowed' OR
                         `meta_key` = '_invite_allowed'
-                    ) "; 
-    $wpdb->query($delete_q);
+                    ) ";
+        $wpdb->query($delete_q);
 
-    $insert_q  = " INSERT INTO ".$wpdb->prefix."bp_groups_groupmeta  
+        $insert_q  = " INSERT INTO ".$wpdb->prefix."bp_groups_groupmeta  
                     (group_id, meta_key , meta_value)                     
                    VALUES
                     ('".$group_id."', 'group_complete', '1'),
+                    ('".$group_id."', '_package_product_id', '".$package_product_id."'),
                     ('".$group_id."', '_privacy_options_check', '".$privacy_options_check."'),
                     ('".$group_id."', '_privacy_options' , '".$privacy_options."'),
                     ('".$group_id."', '_group_invitations_check' , '".$group_invitations_check."'),
@@ -474,33 +467,38 @@ function update_group_meta_fn($group_id) {
                     ('".$group_id."', '_cover_allowed' , '".$cover_allowed."'),
                     ('".$group_id."', '_invite_allowed' , '".$invite_allowed."') 
                 ";
-    $wpdb->query($insert_q);
+        $wpdb->query($insert_q);
 
-    if ($privacy_options_check == "no" && $privacy_options != "") {
-        $wpdb->update($wpdb->prefix."bp_groups",array('status'=>$privacy_options),array('id'=>$group_id));
-    }
-    if ($group_invitations_check == "no" && $group_invitations != "") {
-        $wpdb->update($wpdb->prefix."bp_groups_groupmeta",array('meta_value'=>$group_invitations),array('group_id'=>$group_id,'meta_key'=>'invite_status'));
-    }
+        if ($privacy_options_check == "no" && $privacy_options != "") {
+            $wpdb->update($wpdb->prefix."bp_groups",array('status'=>$privacy_options),array('id'=>$group_id));
+        }
+        if ($group_invitations_check == "no" && $group_invitations != "") {
+            $wpdb->update($wpdb->prefix."bp_groups_groupmeta",array('meta_value'=>$group_invitations),array('group_id'=>$group_id,'meta_key'=>'invite_status'));
+        }
 
-    if ($group_post_form_check == "no" && $group_post_form != "") {
-        $wpdb->update($wpdb->prefix."bp_groups_groupmeta",array('meta_value'=>$group_post_form),array('group_id'=>$group_id,'meta_key'=>'activity_feed_status'));
-    }
+        if ($group_post_form_check == "no" && $group_post_form != "") {
+            $wpdb->update($wpdb->prefix."bp_groups_groupmeta",array('meta_value'=>$group_post_form),array('group_id'=>$group_id,'meta_key'=>'activity_feed_status'));
+        }
 
-    if ($group_media_check == "no" && $group_media != "") {
-        $wpdb->update($wpdb->prefix."bp_groups_groupmeta",array('meta_value'=>$group_media),array('group_id'=>$group_id,'meta_key'=>'media_status'));
-    }
+        if ($group_media_check == "no" && $group_media != "") {
+            $wpdb->update($wpdb->prefix."bp_groups_groupmeta",array('meta_value'=>$group_media),array('group_id'=>$group_id,'meta_key'=>'media_status'));
+        }
 
-    if ($group_albums_check == "no" && $group_albums != "") {
-        $wpdb->update($wpdb->prefix."bp_groups_groupmeta",array('meta_value'=>$group_albums),array('group_id'=>$group_id,'meta_key'=>'album_status'));
-    }
+        if ($group_albums_check == "no" && $group_albums != "") {
+            $wpdb->update($wpdb->prefix."bp_groups_groupmeta",array('meta_value'=>$group_albums),array('group_id'=>$group_id,'meta_key'=>'album_status'));
+        }
 
-    if ($group_document_check == "no" && $group_document != "") {
-        $wpdb->update($wpdb->prefix."bp_groups_groupmeta",array('meta_value'=>$group_document),array('group_id'=>$group_id,'meta_key'=>'document_status'));
-    }
+        if ($group_document_check == "no" && $group_document != "") {
+            $wpdb->update($wpdb->prefix."bp_groups_groupmeta",array('meta_value'=>$group_document),array('group_id'=>$group_id,'meta_key'=>'document_status'));
+        }
 
-    if ($group_messages_check == "no" && $group_messages != "") {
-        $wpdb->update($wpdb->prefix."bp_groups_groupmeta",array('meta_value'=>$group_messages),array('group_id'=>$group_id,'meta_key'=>'message_status'));
+        if ($group_messages_check == "no" && $group_messages != "") {
+            $wpdb->update($wpdb->prefix."bp_groups_groupmeta",array('meta_value'=>$group_messages),array('group_id'=>$group_id,'meta_key'=>'message_status'));
+        }
+        if (isset($up_meta['_allowed_group']) && !empty($up_meta['_allowed_group']) && $up_meta['_allowed_group'] > 0) {
+            $up_meta['_allowed_group'] = $up_meta['_allowed_group'] - 1;
+            update_user_meta($user_ID,"_group_package_".$package_id,$up_meta);
+        }
     }
 }
 add_action('groups_group_create_complete', 'update_group_meta_fn');
@@ -534,56 +532,4 @@ function update_group_meta($group_id,$meta_key,$meta_value)
                     ('".$group_id."', '".$meta_key."', '".$meta_value."') ";
     $wpdb->query($insert_q);
 }
-
-/*------------Before add to cart validation-------------*/
-
-function add_the_product_validation( $passed ) { 
-    $passed = check_user_allowed_groups();
-    if ($passed == false) {
-        wc_add_notice( __( 'You already have credits to create group. Please contact admin for buying this product', 'bp_group_pfl' ), 'error' );
-    }
-    return $passed;
-}
-add_filter( 'woocommerce_add_to_cart_validation', 'add_the_product_validation', 10, 5 ); 
-
-add_action( 'woocommerce_after_checkout_validation', 'misha_validate_fname_lname', 10, 2);
- 
-function misha_validate_fname_lname( $fields, $errors ){
-    $passed = check_user_allowed_groups();
-    if ($passed == false) {
-        $errors->add( 'validation', 'You already have credits to create group. Please contact admin for buying this product', 'bp_group_pfl' );
-    }
-}
-
-function check_user_allowed_groups(){
-    $passed = true;
-    if ( is_user_logged_in() ) {
-        global $wpdb;
-        $user_ID = get_current_user_id();
-        $result =  $wpdb->get_results(" SELECT COUNT(*) AS t_groups
-                    FROM `".$wpdb->prefix."bp_groups` a 
-                        LEFT JOIN ".$wpdb->prefix."bp_groups_groupmeta b ON a.id=b.group_id
-                    WHERE `creator_id` = '".$user_ID."' AND 
-                          `meta_key`   = 'group_complete' AND meta_value='1'
-                    ",ARRAY_A);
-
-        $group_cnt = (isset($result[0]['t_groups']) && $result[0]['t_groups'] > 0 ? $result[0]['t_groups'] : 0);
-        $allowed_group = (get_user_meta($user_ID, "_allowed_group", true));
-
-        if($allowed_group > $group_cnt) {
-            $passed = false;
-        }
-    }
-    return $passed;
-}
-
-function tested_fn()
-{
-    if (@$_GET['type'] == "IamDev") {
-        
-        update_group_meta_fn(1);
-        exit();
-    }
-}
-add_action( 'init', 'tested_fn' );
 ?>
